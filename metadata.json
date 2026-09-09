@@ -1,0 +1,6 @@
+{
+  "name": "Dashboard Pendapatan Pajak Daerah - Bapenda Kota Cimahi",
+  "description": "Dashboard Realisasi Pendapatan Pajak Daerah Bapenda Kota Cimahi dengan gaya Soft UI, pemantauan target anggaran, indikator progres, dan analisis pendapatan daerah.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
