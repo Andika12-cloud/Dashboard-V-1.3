@@ -114,6 +114,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
   // Print Preview Modal
   const [isPrintPreviewOpen, setIsPrintPreviewOpen] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
 
   // LEVEL 3 DRILLDOWN: WP DETAIL TRANSACTIONS MODAL
   const [selectedWpForModal, setSelectedWpForModal] = useState<TaxPayerDetail | null>(null);
@@ -293,16 +294,32 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const totalGrowthNominal = totalRealisasi2026 - totalRealisasi2025;
   const totalGrowthPersen = totalRealisasi2025 > 0 ? (totalGrowthNominal / totalRealisasi2025) * 100 : 0;
 
+  const handleExportExcel = async () => {
+    try {
+      setIsExporting(true);
+      await exportReportToExcel(
+        filteredData, 
+        { start: filterStartDate, end: filterEndDate }, 
+        selectedKecamatan, 
+        isYoYEnabled
+      );
+    } catch (error) {
+      console.error('Gagal mengekspor data Excel:', error);
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   return (
     <div className="space-y-6 font-sans text-slate-800 antialiased">
       {/* 1. Header Banner & Action Buttons */}
       <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-0.5 rounded-full bg-[#1B365D]/10 text-[#1B365D] border border-[#1B365D]/20 text-[11px] font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-[11px] font-bold uppercase tracking-wider">
               Modul Audit & Rekapitulasi Kasda
             </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-semibold flex items-center gap-1">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-semibold flex items-center gap-1">
               <CheckCircle2 className="w-3 h-3 text-emerald-600" />
               <span>Real-Time SIPD Valid</span>
             </span>
@@ -315,24 +332,35 @@ export const ReportView: React.FC<ReportViewProps> = ({
           </p>
         </div>
 
-        {/* Action Buttons: Hanya Cetak PDF & Ekspor Excel */}
+        {/* Action Buttons: Cetak PDF & Ekspor Excel */}
         <div className="flex items-center gap-2.5 flex-wrap">
           {/* Print PDF Preview */}
           <button
             onClick={() => setIsPrintPreviewOpen(true)}
             className="px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition-all shadow-xs cursor-pointer"
           >
-            <Printer className="w-3.5 h-3.5 text-[#1B365D]" />
+            <Printer className="w-3.5 h-3.5 text-slate-600" />
             <span>Cetak PDF</span>
           </button>
 
-          {/* Export Excel */}
+          {/* Export Excel (.xlsx) dengan exceljs & file-saver */}
           <button
-            onClick={() => exportReportToExcel(filteredData, { start: filterStartDate, end: filterEndDate }, selectedKecamatan, isYoYEnabled)}
-            className="px-4 py-2.5 rounded-xl bg-[#E67E22] hover:bg-[#D35400] text-xs font-semibold text-white flex items-center gap-2 shadow-sm shadow-[#E67E22]/20 transition-all cursor-pointer"
+            onClick={handleExportExcel}
+            disabled={isExporting}
+            className="px-4 py-2.5 rounded-xl bg-[#1B3B36] hover:bg-[#142C28] disabled:opacity-75 text-xs font-semibold text-white flex items-center gap-2 shadow-xs transition-all cursor-pointer"
+            title="Unduh laporan formal Excel dengan rumus dan format angka rapi"
           >
-            <Download className="w-3.5 h-3.5" />
-            <span>Ekspor Excel (.xlsx)</span>
+            {isExporting ? (
+              <>
+                <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span>Memproses Excel...</span>
+              </>
+            ) : (
+              <>
+                <Download className="w-3.5 h-3.5" />
+                <span>Ekspor Excel (.xlsx)</span>
+              </>
+            )}
           </button>
         </div>
       </div>
