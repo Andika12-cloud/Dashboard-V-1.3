@@ -165,7 +165,7 @@ export default function App() {
           {/* Header Bapenda Kota Cimahi */}
           <div className="text-center mb-6">
             <div className="flex justify-center mb-4">
-              <img 
+              <img
                 src="/assets/Bapenda-Logo.png" 
                 alt="Logo Bapenda Kota Cimahi" 
                 className="w-16 h-16 object-contain"
@@ -303,7 +303,7 @@ export default function App() {
               <div className="relative mb-5 flex items-center justify-center">
                 <div className="absolute inset-0 bg-[#E67E22]/20 rounded-full blur-xl animate-pulse" />
                 <div className="relative p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-center">
-                  <img 
+                  <img
                     src="/assets/Bapenda-Logo.png" 
                     alt="Logo Bapenda Kota Cimahi" 
                     className="w-12 h-12 object-contain animate-pulse"

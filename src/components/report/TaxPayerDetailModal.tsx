@@ -98,7 +98,7 @@ export const TaxPayerDetailModal: React.FC<TaxPayerDetailModalProps> = ({
           <div className="bg-[#1B365D] text-white p-5 sm:p-6 flex items-start justify-between gap-4 shrink-0">
             <div className="flex items-start gap-3.5">
               <div className="w-12 h-12 rounded-2xl bg-white/10 p-1.5 flex items-center justify-center border border-white/20 shrink-0">
-                <img 
+                <img
                   src="/assets/Bapenda-Logo.png" 
                   alt="Logo Bapenda Kota Cimahi" 
                   className="w-9 h-9 object-contain" 
@@ -371,7 +371,7 @@ export const TaxPayerDetailModal: React.FC<TaxPayerDetailModalProps> = ({
                 <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 border border-slate-200 shadow-2xl space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                     <div className="flex items-center gap-2">
-                      <img 
+                      <img
                         src="/assets/Bapenda-Logo.png" 
                         alt="Logo Bapenda Kota Cimahi" 
                         className="w-7 h-7 object-contain shrink-0" 
