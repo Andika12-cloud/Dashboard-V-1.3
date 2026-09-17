@@ -82,11 +82,11 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl shadow-slate-200/70 relative z-10">
         {/* Header / Logo Bapenda Kota Cimahi */}
         <div className="text-center mb-6">
-        <div className="flex justify-center mb-2 overflow-hidden">
+        <div className="flex justify-center mb-4">
          <img
            src="/assets/Bapenda-Logo.png" 
            alt="Logo Bapenda Kota Cimahi" 
-           className="w-40 h-auto max-h-32 object-contain scale-125" 
+           className="w-52 h-auto object-contain" 
           />
          </div>
           <div className="flex items-center justify-center gap-1.5 mb-1.5">
@@ -233,16 +233,16 @@ export default function LoginPage() {
             {/* Logo Bapenda Kota Cimahi */}
             <div className="relative mb-5 flex items-center justify-center">
             <div className="absolute inset-0 bg-[#E67E22]/20 rounded-full blur-xl animate-pulse" />
-            {/* Berikan ukuran pasti pada container dan perkecil padding-nya */}
-             <div className="relative w-28 h-28 p-1.5 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-center overflow-hidden">
-               <img
-                 src="/assets/Bapenda-Logo.png" 
-                 alt="Logo Bapenda Kota Cimahi" 
-                  className="w-full h-full object-contain animate-pulse scale-125" 
-               />
-             </div>
-            </div>
-
+  
+            {/* Perbesar kontainer ke w-36 h-36 dan hilangkan overflow-hidden & scale */}
+            <div className="relative w-36 h-36 p-1 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-center">
+            <img
+               src="/assets/Bapenda-Logo.png" 
+               alt="Logo Bapenda Kota Cimahi" 
+               className="w-full h-full object-contain animate-pulse" 
+            />
+          </div>
+        </div>
             {/* Identitas Resmi */}
             <div className="flex items-center justify-center gap-1.5 mb-1.5">
               <span className="text-base sm:text-lg font-extrabold text-[#1B365D] tracking-tight">
