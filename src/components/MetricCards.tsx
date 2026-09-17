@@ -181,9 +181,6 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
                     <Coins className="w-3.5 h-3.5 text-slate-500" />
                     {selectedYear === 2026 ? 'Akumulasi Bulan' : 'Rekapitulasi'}
                   </span>
-                  <span className="text-xs text-slate-500 font-normal tabular-nums">
-                    Target Bulanan: ~{formatRupiahShort(Math.round(totalTarget / 12))}
-                  </span>
                 </div>
               </div>
             </div>
@@ -228,15 +225,6 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
               <div className="mt-1">
                 <div className="text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
                   {formatRupiah(summary.penerimaanHariIni)}
-                </div>
-                <div className="flex items-center gap-2 mt-2 flex-wrap">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 tabular-nums">
-                    <ArrowUpRight className="w-3.5 h-3.5 text-emerald-600" />
-                    Setoran SSPD
-                  </span>
-                  <span className="text-xs text-slate-500 font-normal">
-                    Kas Masuk
-                  </span>
                 </div>
               </div>
             </div>
