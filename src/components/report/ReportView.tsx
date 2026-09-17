@@ -371,7 +371,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           <div className="flex items-center gap-2">
             <Filter className="w-4 h-4 text-[#1B365D]" />
             <h2 className="text-sm font-bold text-slate-900 tracking-tight">
-              Parameter Filter & Penelusuran Tanggal Cut-Off
+              Parameter Filter & Penelusuran Tanggal
             </h2>
           </div>
         </div>
@@ -380,7 +380,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           {/* Filter 1: Tanggal Mulai Cut-Off (Modern Clean Date Picker) */}
           <div className="w-full">
             <CustomDatePicker
-              label="Tanggal Mulai Cut-Off"
+              label="Tanggal Mulai"
               value={filterStartDate}
               onChange={(newDate) => {
                 setFilterStartDate(newDate);
@@ -395,7 +395,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           {/* Filter 2: Tanggal Selesai Cut-Off (Modern Clean Date Picker) */}
           <div className="w-full">
             <CustomDatePicker
-              label="Tanggal Selesai Cut-Off"
+              label="Tanggal Selesai"
               value={filterEndDate}
               onChange={(newDate) => {
                 setFilterEndDate(newDate);

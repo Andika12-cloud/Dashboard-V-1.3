@@ -59,6 +59,20 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
     return [...taxData].sort((a, b) => a.persentaseTahun - b.persentaseTahun)[0] || taxData[0];
   }, [taxData]);
 
+  // Nama hari & tanggal real-time sistem komputer saat ini
+  const namaHariRealtime = useMemo(() => {
+    const hari = new Date().toLocaleDateString('id-ID', { weekday: 'long' });
+    return hari.charAt(0).toUpperCase() + hari.slice(1);
+  }, []);
+
+  const tanggalRealtimeFormatted = useMemo(() => {
+    return new Date().toLocaleDateString('id-ID', { 
+      day: 'numeric', 
+      month: 'short', 
+      year: 'numeric' 
+    });
+  }, []);
+
   return (
     <div className="space-y-4 font-sans">
       {/* 3 Main Highlighted KPI Cards - Uniform Elegant White Cards with Subtle Top Accent */}
@@ -74,42 +88,48 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
 
           <div className="relative z-10 flex flex-col justify-between h-full">
             <div>
-              {/* Header with Title & Target Chip */}
+              {/* 1. Judul kartu (Icon & Teks "Penerimaan TA 2026") */}
               <div className="flex items-center justify-between gap-2 mb-3">
                 <div className="flex items-center gap-2 min-w-0">
                   <div className="w-8 h-8 rounded-lg bg-slate-100 text-[#1E293B] flex items-center justify-center shrink-0">
                     <Target className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-semibold tracking-tight text-slate-800 truncate">
-                    {dateRangeLabel ? `Penerimaan (${dateRangeLabel})` : `Penerimaan ${selectedYear}`}
+                    {dateRangeLabel ? `Penerimaan (${dateRangeLabel})` : `Penerimaan TA ${selectedYear}`}
                   </span>
                 </div>
 
-                {/* Target Badge dengan whitespace-nowrap agar tidak terpotong */}
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200/80 shrink-0 whitespace-nowrap">
-                  <span className="text-slate-500 font-normal">Target:</span>
-                  <span className="font-semibold text-slate-800 tabular-nums">{formatRupiahShort(totalTarget)}</span>
-                </div>
+                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200/80 shrink-0 whitespace-nowrap">
+                  {selectedYear === 2026 ? 'Tahun Berjalan' : `TA ${selectedYear}`}
+                </span>
               </div>
 
-              {/* Big Realisasi Amount */}
-              <div className="mt-1">
-                <div className="text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
-                  {formatRupiah(totalRealisasi)}
-                </div>
-                <div className="flex items-center gap-2 mt-2 flex-wrap">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 tabular-nums">
-                    <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-                    {formatPercentage(totalPersen)} Tercapai
-                  </span>
-                  <span className="text-xs text-slate-500 font-normal tabular-nums">
-                    Sisa: {formatRupiahShort(sisaTarget)}
-                  </span>
-                </div>
+              {/* 2. Teks Target di ATAS angka utama - Lebih menonjol dengan badge elegan & kontras tegas */}
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200/90 mb-2">
+                <span className="text-xs font-medium text-slate-600">Target:</span>
+                <span className="text-sm font-bold text-slate-900 tabular-nums tracking-tight">
+                  {formatRupiahShort(totalTarget)}
+                </span>
+              </div>
+
+              {/* 3. Nominal Pendapatan Utama yang besar (Contoh: Rp 238.592.417.707) */}
+              <div className="text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
+                {formatRupiah(totalRealisasi)}
+              </div>
+
+              {/* 4. Badge Capaian & Sisa (misal: 70,7% Tercapai) */}
+              <div className="flex items-center gap-2 mt-2 flex-wrap">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 tabular-nums">
+                  <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+                  {formatPercentage(totalPersen)} Tercapai
+                </span>
+                <span className="text-xs text-slate-500 font-normal tabular-nums">
+                  Sisa: {formatRupiahShort(sisaTarget)}
+                </span>
               </div>
             </div>
 
-            {/* Progress Bar Container */}
+            {/* 5. Progress Bar di bagian bawah */}
             <div className="mt-4 pt-3 border-t border-slate-100">
               <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5 font-normal">
                 <span>Progres Realisasi Kas</span>
@@ -178,7 +198,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
           </div>
         </div>
 
-        {/* Card 3: Penerimaan Hari Ini / Rata-Rata */}
+        {/* Card 3: Penerimaan Hari Ini (Real-Time Dynamic Day Name) */}
         <div 
           className="relative bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:border-slate-300 transition-all flex flex-col justify-between overflow-hidden"
           onMouseEnter={() => setActiveTooltip('hari')}
@@ -195,12 +215,12 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
                     <Coins className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-semibold tracking-tight text-slate-800 truncate">
-                    Penerimaan Harian
+                    Penerimaan Hari {namaHariRealtime}
                   </span>
                 </div>
 
                 <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200/80 tabular-nums shrink-0 whitespace-nowrap">
-                  {summary.namaHari}
+                  {tanggalRealtimeFormatted}
                 </span>
               </div>
 

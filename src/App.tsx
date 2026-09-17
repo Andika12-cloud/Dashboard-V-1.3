@@ -7,7 +7,6 @@ import { TaxRankingChart } from './components/TaxRankingChart';
 import { TrendRevenueChart } from './components/TrendRevenueChart';
 import { TaxDetailModal } from './components/TaxDetailModal';
 import { ExportModal } from './components/ExportModal';
-import { CimahiLogo } from './components/CimahiLogo';
 import { ReportView } from './components/report/ReportView';
 import { TaxItem } from './types';
 import { 
@@ -166,9 +165,11 @@ export default function App() {
           {/* Header Bapenda Kota Cimahi */}
           <div className="text-center mb-6">
             <div className="flex justify-center mb-4">
-              <div className="h-16 max-w-[120px] flex items-center justify-center">
-                <CimahiLogo size="xl" showText={false} />
-              </div>
+              <img 
+                src="/assets/aistudio/Bapenda-Logo.png" 
+                alt="Logo Bapenda Kota Cimahi" 
+                className="w-16 h-16 object-contain"
+              />
             </div>
             <div className="flex items-center justify-center gap-1.5 mb-1.5">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#1B365D] bg-[#1B365D]/10 border border-[#1B365D]/20 px-2.5 py-0.5 rounded-full">
@@ -301,8 +302,12 @@ export default function App() {
             <div className="w-full max-w-sm bg-white rounded-3xl p-8 border border-slate-100 shadow-2xl shadow-slate-900/20 flex flex-col items-center text-center transform scale-100 animate-in zoom-in-95 duration-200">
               <div className="relative mb-5 flex items-center justify-center">
                 <div className="absolute inset-0 bg-[#E67E22]/20 rounded-full blur-xl animate-pulse" />
-                <div className="relative p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-center h-16 w-16 max-w-[120px]">
-                  <CimahiLogo size="xl" showText={false} animatePulse={true} />
+                <div className="relative p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-center">
+                  <img 
+                    src="/assets/aistudio/Bapenda-Logo.png" 
+                    alt="Logo Bapenda Kota Cimahi" 
+                    className="w-12 h-12 object-contain animate-pulse"
+                  />
                 </div>
               </div>
 
