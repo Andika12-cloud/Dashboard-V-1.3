@@ -82,13 +82,13 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl shadow-slate-200/70 relative z-10">
         {/* Header / Logo Bapenda Kota Cimahi */}
         <div className="text-center mb-6">
-          <div className="flex justify-center mb-4">
-            <img
-              src="/assets/Bapenda-Logo.png" 
-              alt="Logo Bapenda Kota Cimahi" 
-              className="w-28 h-28 object-contain" 
-            />
-          </div>
+        <div className="flex justify-center mb-2 overflow-hidden">
+         <img
+           src="/assets/Bapenda-Logo.png" 
+           alt="Logo Bapenda Kota Cimahi" 
+           className="w-40 h-auto max-h-32 object-contain scale-125" 
+          />
+         </div>
           <div className="flex items-center justify-center gap-1.5 mb-1.5">
             <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#1B365D] bg-[#1B365D]/10 border border-[#1B365D]/20 px-2.5 py-0.5 rounded-full">
               BAPENDA KOTA CIMAHI
@@ -232,14 +232,15 @@ export default function LoginPage() {
           <div className="w-full max-w-sm bg-white rounded-3xl p-8 border border-slate-100 shadow-2xl shadow-slate-900/20 flex flex-col items-center text-center transform scale-100">
             {/* Logo Bapenda Kota Cimahi */}
             <div className="relative mb-5 flex items-center justify-center">
-              <div className="absolute inset-0 bg-[#E67E22]/20 rounded-full blur-xl animate-pulse" />
-              <div className="relative p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-center">
-                <img
-                  src="/assets/Bapenda-Logo.png" 
-                  alt="Logo Bapenda Kota Cimahi" 
-                  className="w-24 h-24 object-contain animate-pulse" 
-                />
-              </div>
+            <div className="absolute inset-0 bg-[#E67E22]/20 rounded-full blur-xl animate-pulse" />
+            {/* Berikan ukuran pasti pada container dan perkecil padding-nya */}
+             <div className="relative w-28 h-28 p-1.5 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-center overflow-hidden">
+               <img
+                 src="/assets/Bapenda-Logo.png" 
+                 alt="Logo Bapenda Kota Cimahi" 
+                  className="w-full h-full object-contain animate-pulse scale-125" 
+               />
+             </div>
             </div>
 
             {/* Identitas Resmi */}

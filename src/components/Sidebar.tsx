@@ -15,6 +15,8 @@ interface SidebarProps {
   setIsOpen: (open: boolean) => void;
   isCollapsed?: boolean;
   setIsCollapsed?: (collapsed: boolean | ((prev: boolean) => boolean)) => void;
+  selectedCategory?: string; 
+  setSelectedCategory?: React.Dispatch<React.SetStateAction<string>>;
   onLogout?: () => void;
 }
 
