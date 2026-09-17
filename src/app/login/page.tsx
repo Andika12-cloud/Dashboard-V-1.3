@@ -84,7 +84,7 @@ export default function LoginPage() {
         <div className="text-center mb-6">
         <div className="flex justify-center mb-4">
          <img
-           src="/assets/Bapenda-Logo.png" 
+           src="/assets/logo2.png" 
            alt="Logo Bapenda Kota Cimahi" 
            className="w-52 h-auto object-contain" 
           />
