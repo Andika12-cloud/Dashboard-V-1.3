@@ -166,9 +166,9 @@ export default function App() {
           <div className="text-center mb-6">
             <div className="flex justify-center mb-4">
               <img
-                src="/assets/Bapenda-Logo.png" 
-                alt="Logo Bapenda Kota Cimahi" 
-                className="w-16 h-16 object-contain"
+                 src="/assets/logo2.png" 
+                 alt="Logo Bapenda Kota Cimahi" 
+                 className="w-52 h-auto object-contain" 
               />
             </div>
             <div className="flex items-center justify-center gap-1.5 mb-1.5">
