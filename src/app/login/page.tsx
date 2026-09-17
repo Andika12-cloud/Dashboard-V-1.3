@@ -86,7 +86,7 @@ export default function LoginPage() {
             <img
               src="/assets/Bapenda-Logo.png" 
               alt="Logo Bapenda Kota Cimahi" 
-              className="w-16 h-16 object-contain" 
+              className="w-28 h-28 object-contain" 
             />
           </div>
           <div className="flex items-center justify-center gap-1.5 mb-1.5">
@@ -237,7 +237,7 @@ export default function LoginPage() {
                 <img
                   src="/assets/Bapenda-Logo.png" 
                   alt="Logo Bapenda Kota Cimahi" 
-                  className="w-12 h-12 object-contain animate-pulse" 
+                  className="w-24 h-24 object-contain animate-pulse" 
                 />
               </div>
             </div>
