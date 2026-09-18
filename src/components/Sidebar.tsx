@@ -76,7 +76,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className={`px-4 py-5 border-b border-slate-200/90 flex items-center bg-white transition-all duration-300 ${collapsed ? 'justify-center' : 'justify-between'}`}>
           <div className={`flex items-center gap-3 min-w-0 ${collapsed ? 'justify-center' : ''}`}>
             <img
-              src="/assets/Bapenda-Logo.png" 
+              src="/assets/Bapenda-Logo2.png" 
               alt="Logo Bapenda Kota Cimahi" 
               className={`${collapsed ? 'w-7 h-7' : 'w-8 h-8'} object-contain shrink-0`}
             />

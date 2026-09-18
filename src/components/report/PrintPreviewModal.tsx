@@ -73,7 +73,7 @@ export const PrintPreviewModal: React.FC<PrintPreviewModalProps> = ({
             {/* Logo Lambang Kota Cimahi */}
             <div className="w-20 h-20 flex items-center justify-center shrink-0">
               <img
-                src="/assets/Bapenda-Logo.png" 
+                src="/assets/Bapenda-Logo2.png" 
                 alt="Logo Bapenda Kota Cimahi" 
                 className="w-16 h-16 sm:w-18 sm:h-18 object-contain" 
               />
