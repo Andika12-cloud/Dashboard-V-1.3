@@ -124,9 +124,6 @@ export const TaxTable: React.FC<TaxTableProps> = ({
             <h2 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
               <span>Ringkasan Realisasi Pajak Daerah</span>
             </h2>
-            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-              Executive Summary
-            </span>
           </div>
           <p className="text-xs text-slate-500 mt-0.5">
             Ikhtisar cepat realisasi kas untuk pengambilan keputusan strategis TA 2026.
