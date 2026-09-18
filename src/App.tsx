@@ -154,7 +154,7 @@ export default function App() {
   };
 
   // 1. Tampilan Halaman Login
-  if (!isAuthenticated) {
+   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8 font-sans antialiased text-slate-800 relative overflow-hidden">
         {/* Soft UI Glow Background */}
@@ -165,10 +165,10 @@ export default function App() {
           {/* Header Bapenda Kota Cimahi */}
           <div className="text-center mb-6">
             <div className="flex justify-center mb-4">
-              <img
-                 src="/assets/Bapenda-Logo2.png" 
-                 alt="Logo Bapenda Kota Cimahi" 
-                 className="w-40 h-auto object-contain mx-auto" 
+              <img 
+                src="assets/Bapenda-Logo2.png" 
+                alt="Logo Bapenda Kota Cimahi" 
+                className="w-16 h-16 object-contain"
               />
             </div>
             <div className="flex items-center justify-center gap-1.5 mb-1.5">
@@ -304,7 +304,7 @@ export default function App() {
                 <div className="absolute inset-0 bg-[#E67E22]/20 rounded-full blur-xl animate-pulse" />
                 <div className="relative p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-center">
                   <img
-                    src="/assets/Bapenda-Logo.png" 
+                    src="/assets/Bapenda-Logo2.png" 
                     alt="Logo Bapenda Kota Cimahi" 
                     className="w-12 h-12 object-contain animate-pulse"
                   />
