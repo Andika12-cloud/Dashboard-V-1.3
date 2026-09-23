@@ -533,7 +533,6 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <span className="text-xs text-[#27AE60] font-semibold tabular-nums">
               Capaian: {formatPercentage(totalPersen)}
             </span>
-            <span className="text-xs text-slate-400">• Cut-off Kasda</span>
           </div>
         </div>
 
