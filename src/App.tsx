@@ -387,24 +387,24 @@ export default function App() {
                 />
               </section>
 
-              {/* 2. Baris Tengah: Table (col-span-12 lg:col-span-8 xl:col-span-9) + Ranking (col-span-12 lg:col-span-4 xl:col-span-3) */}
-              <section className="grid grid-cols-12 gap-6 w-full items-start">
-                <div className="col-span-12 lg:col-span-8 xl:col-span-9 w-full">
+              {/* 2. Baris Tengah: Table (col-span-12 xl:col-span-8) + Ranking (col-span-12 xl:col-span-4) */}
+              <section className="grid grid-cols-12 gap-4 w-full items-start">
+                <div className="col-span-12 xl:col-span-8 w-full min-w-0">
                   <TaxTable 
-                    data={filteredTaxData}
-                    selectedYear={selectedYear}
-                    onSelectTaxItem={(item) => setSelectedTaxItem(item)}
-                    searchQuery={searchQuery}
-                    categoryFilter={selectedCategory}
-                    onNavigateLaporan={() => setActiveTab('laporan')}
+                  data={filteredTaxData}
+                  selectedYear={selectedYear}
+                  onSelectTaxItem={(item) => setSelectedTaxItem(item)}
+                  searchQuery={searchQuery}
+                  categoryFilter={selectedCategory}
+                  onNavigateLaporan={() => setActiveTab('laporan')}
                   />
                 </div>
 
-                <div className="col-span-12 lg:col-span-4 xl:col-span-3 w-full">
+                <div className="col-span-12 xl:col-span-4 w-full min-w-0">
                   <TaxRankingChart 
-                    data={filteredTaxData}
-                    selectedYear={selectedYear}
-                    onSelectTaxItem={(item) => setSelectedTaxItem(item)}
+                  data={filteredTaxData}
+                  selectedYear={selectedYear}
+                  onSelectTaxItem={(item) => setSelectedTaxItem(item)}
                   />
                 </div>
               </section>
