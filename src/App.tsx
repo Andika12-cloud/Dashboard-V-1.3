@@ -7,6 +7,7 @@ import { TaxRankingChart } from './components/TaxRankingChart';
 import { TrendRevenueChart } from './components/TrendRevenueChart';
 import { TaxDetailModal } from './components/TaxDetailModal';
 import { ExportModal } from './components/ExportModal';
+import { Profile } from './components/Profile';
 import { ReportView } from './components/report/ReportView';
 import { TaxItem } from './types';
 import { 
@@ -60,6 +61,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTaxItem, setSelectedTaxItem] = useState<TaxItem | null>(null);
   const [isExportOpen, setIsExportOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showRefreshToast, setShowRefreshToast] = useState(false);
 
@@ -362,6 +364,7 @@ export default function App() {
           onRefresh={handleRefresh}
           isRefreshing={isRefreshing}
           onLogout={handleLogout}
+          onOpenProfile={() => setIsProfileOpen(true)}
         />
 
         {/* Page Main Body Full Width */}
@@ -438,6 +441,11 @@ export default function App() {
       <ExportModal
         isOpen={isExportOpen}
         onClose={() => setIsExportOpen(false)}
+      />
+      {/* Modal Profil Akun */}
+      <Profile
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
       />
     </div>
   );

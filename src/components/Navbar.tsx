@@ -20,6 +20,7 @@ interface NavbarProps {
   onRefresh?: () => void;
   isRefreshing?: boolean;
   onLogout?: () => void;
+  onOpenProfile?: () => void;
   // Optional legacy props
   onExport?: () => void;
   onExportClick?: () => void;
@@ -38,6 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onRefresh = () => {},
   isRefreshing = false,
   onLogout,
+  onOpenProfile,
 }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -262,7 +264,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
                 <button 
                   type="button"
-                  onClick={() => setShowProfileMenu(false)}
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    onOpenProfile?.();
+                  }}
                   className="w-full text-left px-3 py-2 text-xs text-slate-600 hover:bg-slate-50 rounded-xl font-medium flex items-center gap-2 cursor-pointer"
                 >
                   <User className="w-3.5 h-3.5 text-slate-400" />
