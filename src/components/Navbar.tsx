@@ -273,14 +273,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <User className="w-3.5 h-3.5 text-slate-400" />
                   <span>Profil Akun</span>
                 </button>
-                <button 
-                  type="button"
-                  onClick={() => setShowProfileMenu(false)}
-                  className="w-full text-left px-3 py-2 text-xs text-slate-600 hover:bg-slate-50 rounded-xl font-medium flex items-center gap-2 cursor-pointer"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Hak Akses Verifikator</span>
-                </button>
                 <div className="border-t border-slate-100 my-1" />
                 <button 
                   type="button"
