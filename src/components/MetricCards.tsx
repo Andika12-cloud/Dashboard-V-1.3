@@ -13,6 +13,7 @@ import {
 import { getSummaryTotalsByYear, getTaxDataByYear } from '../data/dummy';
 import { SummaryTotals, TaxItem } from '../types';
 import { formatRupiah, formatRupiahShort, formatPercentage } from '../utils/formatters';
+import { AnimatedNumber } from './Animated';
 
 export interface MetricCardsProps {
   selectedYear?: number;
@@ -108,23 +109,23 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200/90 mb-2">
                 <span className="text-xs font-medium text-slate-600">Target:</span>
                 <span className="text-sm font-bold text-slate-900 tabular-nums tracking-tight">
-                  {formatRupiahShort(totalTarget)}
+                  <AnimatedNumber value={totalTarget} format={(n) => formatRupiahShort(Math.round(n))} />
                 </span>
               </div>
 
               {/* 3. Nominal Pendapatan Utama yang besar (Contoh: Rp 238.592.417.707) */}
               <div className="text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
-                {formatRupiah(totalRealisasi)}
+                <AnimatedNumber value={totalRealisasi} duration={1600} format={(n) => formatRupiah(Math.round(n))} />
               </div>
 
               {/* 4. Badge Capaian & Sisa (misal: 70,7% Tercapai) */}
               <div className="flex items-center gap-2 mt-2 flex-wrap">
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 tabular-nums">
                   <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-                  {formatPercentage(totalPersen)} Tercapai
+                  <AnimatedNumber value={totalPersen} format={(n) => formatPercentage(n)} /> Tercapai
                 </span>
                 <span className="text-xs text-slate-500 font-normal tabular-nums">
-                  Sisa: {formatRupiahShort(sisaTarget)}
+                  Sisa: <AnimatedNumber value={sisaTarget} format={(n) => formatRupiahShort(Math.round(n))} />
                 </span>
               </div>
             </div>
@@ -133,7 +134,9 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
             <div className="mt-4 pt-3 border-t border-slate-100">
               <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5 font-normal">
                 <span>Progres Realisasi Kas</span>
-                <span className="font-semibold text-slate-800 tabular-nums">{totalPersen.toFixed(1)}%</span>
+                <span className="font-semibold text-slate-800 tabular-nums">
+                  <AnimatedNumber value={totalPersen} format={(n) => `${n.toFixed(1)}%`} />
+                </span>
               </div>
               <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
                 <div 
@@ -174,7 +177,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
               {/* Big Realisasi Bulan */}
               <div className="mt-1">
                 <div className="text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
-                  {formatRupiah(summary.penerimaanBulanIni)}
+                  <AnimatedNumber value={summary.penerimaanBulanIni} duration={1600} format={(n) => formatRupiah(Math.round(n))} />
                 </div>
                 <div className="flex items-center gap-2 mt-2 flex-wrap">
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200/80">
@@ -224,7 +227,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
               {/* Big Realisasi Hari */}
               <div className="mt-1">
                 <div className="text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
-                  {formatRupiah(summary.penerimaanHariIni)}
+                  <AnimatedNumber value={summary.penerimaanHariIni} duration={1600} format={(n) => formatRupiah(Math.round(n))} />
                 </div>
               </div>
             </div>
@@ -250,7 +253,9 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
             </div>
             <div className="min-w-0">
               <p className="text-xs font-normal text-slate-500 truncate">Capaian Triwulan</p>
-              <p className="text-sm font-semibold text-slate-900 tabular-nums">{formatPercentage(triwulanPersen)}</p>
+              <p className="text-sm font-semibold text-slate-900 tabular-nums">
+                <AnimatedNumber value={triwulanPersen} format={(n) => formatPercentage(n)} />
+              </p>
             </div>
           </div>
           <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
@@ -266,11 +271,13 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
             </div>
             <div className="min-w-0">
               <p className="text-xs font-normal text-slate-500 truncate">Pajak Murni Daerah</p>
-              <p className="text-sm font-semibold text-slate-900 tabular-nums">{formatRupiahShort(summary.subTotalPajakMurni.realisasiTahun)}</p>
+              <p className="text-sm font-semibold text-slate-900 tabular-nums">
+                <AnimatedNumber value={summary.subTotalPajakMurni.realisasiTahun} format={(n) => formatRupiahShort(Math.round(n))} />
+              </p>
             </div>
           </div>
           <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 tabular-nums shrink-0">
-            {formatPercentage(summary.subTotalPajakMurni.persentaseTahun)}
+            <AnimatedNumber value={summary.subTotalPajakMurni.persentaseTahun} format={(n) => formatPercentage(n)} />
           </span>
         </div>
 
@@ -286,7 +293,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
             </div>
           </div>
           <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 tabular-nums shrink-0">
-            {topPajak.persentaseTriwulan.toFixed(1)}%
+            <AnimatedNumber value={topPajak.persentaseTriwulan} format={(n) => `${n.toFixed(1)}%`} />
           </span>
         </div>
 
@@ -302,7 +309,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
             </div>
           </div>
           <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200 tabular-nums shrink-0">
-            {lowestPajak.persentaseTahun.toFixed(1)}%
+            <AnimatedNumber value={lowestPajak.persentaseTahun} format={(n) => `${n.toFixed(1)}%`} />
           </span>
         </div>
       </div>

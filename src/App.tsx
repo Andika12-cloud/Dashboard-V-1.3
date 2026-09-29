@@ -75,7 +75,7 @@ export default function App() {
     return getAggregatedTaxItems(startDate, endDate, selectedYear);
   }, [startDate, endDate, selectedYear]);
 
-  // 3. Ringkasan Total APBD Terfilter (Digunakan oleh MetricCards)
+  // 3. Ringkasan Total APBD Terfilter (Digunakan oleh MetricCards & TaxTable)
   const filteredSummaryTotals = useMemo(() => {
     return getAggregatedSummaryTotals(startDate, endDate, selectedYear);
   }, [startDate, endDate, selectedYear]);
@@ -400,6 +400,7 @@ export default function App() {
                   searchQuery={searchQuery}
                   categoryFilter={selectedCategory}
                   onNavigateLaporan={() => setActiveTab('laporan')}
+                  summaryTotals={filteredSummaryTotals}
                   />
                 </div>
 

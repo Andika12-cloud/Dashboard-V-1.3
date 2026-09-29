@@ -20,7 +20,7 @@ import {
   FileBadge2
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { TaxItem } from '../types';
+import { TaxItem, SummaryTotals } from '../types';
 import { TAX_DATA, SUMMARY_TOTALS, getTaxDataByYear, getSummaryTotalsByYear } from '../data/dummy';
 import { 
   formatRupiah, 
@@ -28,6 +28,7 @@ import {
   formatPercentage, 
   getPercentageStatus 
 } from '../utils/formatters';
+import { AnimatedNumber } from './Animated';
 
 interface TaxTableProps {
   data?: TaxItem[];
@@ -36,6 +37,7 @@ interface TaxTableProps {
   searchQuery?: string;
   categoryFilter?: string;
   onNavigateLaporan?: () => void;
+  summaryTotals?: SummaryTotals;
 }
 
 type ExecutiveViewTab = 'top_performers' | 'perhatian_khusus' | 'semua_sektor';
@@ -64,6 +66,7 @@ export const TaxTable: React.FC<TaxTableProps> = ({
   onSelectTaxItem,
   searchQuery = '',
   onNavigateLaporan,
+  summaryTotals,
 }) => {
   const [activeTab, setActiveTab] = useState<ExecutiveViewTab>('top_performers');
   const [internalSearch, setInternalSearch] = useState('');
@@ -76,10 +79,11 @@ export const TaxTable: React.FC<TaxTableProps> = ({
     return getTaxDataByYear(selectedYear);
   }, [data, selectedYear]);
 
-  // Sumber summary totals dinamis
+  // Sumber summary totals dinamis — pakai data terfilter dari App.tsx jika tersedia
   const dynamicTotals = useMemo(() => {
+    if (summaryTotals) return summaryTotals;
     return getSummaryTotalsByYear(selectedYear);
-  }, [selectedYear]);
+  }, [summaryTotals, selectedYear]);
 
   // Data terfilter sesuai tab eksekutif
   const displayedTaxData = useMemo(() => {
@@ -245,14 +249,14 @@ export const TaxTable: React.FC<TaxTableProps> = ({
                   {/* Target (w-[22%]) */}
                   <td className="w-[22%] py-3 px-2 text-right truncate" title={formatRupiah(tax.targetTahun)}>
                     <span className="tabular-nums font-semibold text-xs text-slate-800 block truncate">
-                      {formatRupiahShort(tax.targetTahun, true)}
+                      <AnimatedNumber value={tax.targetTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
                     </span>
                   </td>
 
                   {/* Realisasi (w-[24%]) */}
                   <td className="w-[24%] py-3 px-2 text-right truncate" title={formatRupiah(tax.realisasiTahun)}>
                     <span className="tabular-nums font-semibold text-xs text-slate-900 block truncate">
-                      {formatRupiahShort(tax.realisasiTahun, true)}
+                      <AnimatedNumber value={tax.realisasiTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
                     </span>
                   </td>
 
@@ -260,7 +264,7 @@ export const TaxTable: React.FC<TaxTableProps> = ({
                   <td className="w-[18%] py-3 px-3 text-right truncate">
                     <div className="flex items-center justify-end">
                       <span className={`inline-block px-2.5 py-0.5 rounded-md text-xs font-semibold tabular-nums text-right ${status.badgeClass}`}>
-                        {formatPercentage(tax.persentaseTahun)}
+                        <AnimatedNumber value={tax.persentaseTahun} format={(n) => formatPercentage(n)} />
                       </span>
                     </div>
                   </td>
@@ -278,14 +282,14 @@ export const TaxTable: React.FC<TaxTableProps> = ({
                 </div>
               </td>
               <td className="w-[22%] py-3 px-2 text-right tabular-nums font-semibold text-xs text-slate-200 truncate">
-                {formatRupiahShort(dynamicTotals.totalKeseluruhan.targetTahun, true)}
+                <AnimatedNumber value={dynamicTotals.totalKeseluruhan.targetTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
               </td>
               <td className="w-[24%] py-3 px-2 text-right tabular-nums font-bold text-xs text-emerald-300 truncate">
-                {formatRupiahShort(dynamicTotals.totalKeseluruhan.realisasiTahun, true)}
+                <AnimatedNumber value={dynamicTotals.totalKeseluruhan.realisasiTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
               </td>
               <td className="w-[18%] py-3 px-3 text-right truncate">
                 <span className="inline-block px-2.5 py-0.5 rounded-md text-xs font-bold tabular-nums bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
-                  {formatPercentage(dynamicTotals.totalKeseluruhan.persentaseTahun)}
+                  <AnimatedNumber value={dynamicTotals.totalKeseluruhan.persentaseTahun} format={(n) => formatPercentage(n)} />
                 </span>
               </td>
             </tr>
