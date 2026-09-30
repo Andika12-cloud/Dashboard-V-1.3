@@ -13,9 +13,9 @@ export interface AnimatedNumberProps {
 
 /**
  * Komponen AnimatedNumber
- * - Saat pertama kali dirender, angka langsung tampil penuh (tidak mulai dari 0).
- * - Setiap kali prop `value` berubah (misal karena refresh data atau update real-time),
- *   angka akan beranimasi dari nilai lama menuju nilai baru.
+ * - Saat pertama kali dirender (misal setelah login), angka menghitung dari 0 menuju nilai asli.
+ * - Setiap kali prop `value` berubah setelahnya (refresh data, filter tanggal, update real-time),
+ *   angka beranimasi dari nilai yang sedang tampil menuju nilai baru (bukan dari 0 lagi).
  * - Menghormati preferensi "reduce motion" pada perangkat pengguna.
  */
 export const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
@@ -24,14 +24,13 @@ export const AnimatedNumber: React.FC<AnimatedNumberProps> = ({
   format = (n) => Math.round(n).toLocaleString('id-ID'),
   className = '',
 }) => {
-  const [display, setDisplay] = useState<number>(value);
-  const currentRef = useRef<number>(value);
+  const [display, setDisplay] = useState<number>(0);
+  const currentRef = useRef<number>(0);
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     const from = currentRef.current;
 
-    // Tidak ada perubahan nilai (termasuk saat render pertama): tidak perlu animasi
     if (from === value) {
       return;
     }
