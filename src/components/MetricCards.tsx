@@ -21,6 +21,7 @@ export interface MetricCardsProps {
   customSummary?: SummaryTotals;
   customTaxData?: TaxItem[];
   dateRangeLabel?: string;
+  refreshKey?: number;
 }
 
 export const MetricCards: React.FC<MetricCardsProps> = ({
@@ -28,6 +29,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
   customSummary,
   customTaxData,
   dateRangeLabel,
+  refreshKey = 0,
 }) => {
   const [_activeTooltip, setActiveTooltip] = useState<string | null>(null);
 
@@ -109,23 +111,23 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200/90 mb-2">
                 <span className="text-xs font-medium text-slate-600">Target:</span>
                 <span className="text-sm font-bold text-slate-900 tabular-nums tracking-tight">
-                  <AnimatedNumber value={totalTarget} format={(n) => formatRupiahShort(Math.round(n))} />
+                  <AnimatedNumber key={`target-${refreshKey}`} value={totalTarget} format={(n) => formatRupiahShort(Math.round(n))} />
                 </span>
               </div>
 
               {/* 3. Nominal Pendapatan Utama yang besar (Contoh: Rp 238.592.417.707) */}
               <div className="text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
-                <AnimatedNumber value={totalRealisasi} duration={1600} format={(n) => formatRupiah(Math.round(n))} />
+                <AnimatedNumber key={`realisasi-${refreshKey}`} value={totalRealisasi} duration={1600} format={(n) => formatRupiah(Math.round(n))} />
               </div>
 
               {/* 4. Badge Capaian & Sisa (misal: 70,7% Tercapai) */}
               <div className="flex items-center gap-2 mt-2 flex-wrap">
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 tabular-nums">
                   <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-                  <AnimatedNumber value={totalPersen} format={(n) => formatPercentage(n)} /> Tercapai
+                  <AnimatedNumber key={`persen-badge-${refreshKey}`} value={totalPersen} format={(n) => formatPercentage(n)} /> Tercapai
                 </span>
                 <span className="text-xs text-slate-500 font-normal tabular-nums">
-                  Sisa: <AnimatedNumber value={sisaTarget} format={(n) => formatRupiahShort(Math.round(n))} />
+                  Sisa: <AnimatedNumber key={`sisa-${refreshKey}`} value={sisaTarget} format={(n) => formatRupiahShort(Math.round(n))} />
                 </span>
               </div>
             </div>
@@ -135,11 +137,12 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
               <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5 font-normal">
                 <span>Progres Realisasi Kas</span>
                 <span className="font-semibold text-slate-800 tabular-nums">
-                  <AnimatedNumber value={totalPersen} format={(n) => `${n.toFixed(1)}%`} />
+                  <AnimatedNumber key={`persen-progress-${refreshKey}`} value={totalPersen} format={(n) => `${n.toFixed(1)}%`} />
                 </span>
               </div>
               <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
                 <div 
+                  key={`bar-${refreshKey}`}
                   className="h-full rounded-full bg-emerald-600 transition-all duration-1000 ease-out"
                   style={{ width: `${Math.min(totalPersen, 100)}%` }}
                 />
@@ -177,7 +180,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
               {/* Big Realisasi Bulan */}
               <div className="mt-1">
                 <div className="text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
-                  <AnimatedNumber value={summary.penerimaanBulanIni} duration={1600} format={(n) => formatRupiah(Math.round(n))} />
+                  <AnimatedNumber key={`bulan-${refreshKey}`} value={summary.penerimaanBulanIni} duration={1600} format={(n) => formatRupiah(Math.round(n))} />
                 </div>
                 <div className="flex items-center gap-2 mt-2 flex-wrap">
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200/80">
@@ -227,7 +230,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
               {/* Big Realisasi Hari */}
               <div className="mt-1">
                 <div className="text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 tabular-nums">
-                  <AnimatedNumber value={summary.penerimaanHariIni} duration={1600} format={(n) => formatRupiah(Math.round(n))} />
+                  <AnimatedNumber key={`hari-${refreshKey}`} value={summary.penerimaanHariIni} duration={1600} format={(n) => formatRupiah(Math.round(n))} />
                 </div>
               </div>
             </div>
@@ -254,7 +257,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
             <div className="min-w-0">
               <p className="text-xs font-normal text-slate-500 truncate">Capaian Triwulan</p>
               <p className="text-sm font-semibold text-slate-900 tabular-nums">
-                <AnimatedNumber value={triwulanPersen} format={(n) => formatPercentage(n)} />
+                <AnimatedNumber key={`triwulan-${refreshKey}`} value={triwulanPersen} format={(n) => formatPercentage(n)} />
               </p>
             </div>
           </div>
@@ -272,12 +275,12 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
             <div className="min-w-0">
               <p className="text-xs font-normal text-slate-500 truncate">Pajak Murni Daerah</p>
               <p className="text-sm font-semibold text-slate-900 tabular-nums">
-                <AnimatedNumber value={summary.subTotalPajakMurni.realisasiTahun} format={(n) => formatRupiahShort(Math.round(n))} />
+                <AnimatedNumber key={`murni-realisasi-${refreshKey}`} value={summary.subTotalPajakMurni.realisasiTahun} format={(n) => formatRupiahShort(Math.round(n))} />
               </p>
             </div>
           </div>
           <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 tabular-nums shrink-0">
-            <AnimatedNumber value={summary.subTotalPajakMurni.persentaseTahun} format={(n) => formatPercentage(n)} />
+            <AnimatedNumber key={`murni-persen-${refreshKey}`} value={summary.subTotalPajakMurni.persentaseTahun} format={(n) => formatPercentage(n)} />
           </span>
         </div>
 
@@ -293,7 +296,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
             </div>
           </div>
           <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 tabular-nums shrink-0">
-            <AnimatedNumber value={topPajak.persentaseTriwulan} format={(n) => `${n.toFixed(1)}%`} />
+            <AnimatedNumber key={`top-${refreshKey}`} value={topPajak.persentaseTriwulan} format={(n) => `${n.toFixed(1)}%`} />
           </span>
         </div>
 
@@ -309,7 +312,7 @@ export const MetricCards: React.FC<MetricCardsProps> = ({
             </div>
           </div>
           <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200 tabular-nums shrink-0">
-            <AnimatedNumber value={lowestPajak.persentaseTahun} format={(n) => `${n.toFixed(1)}%`} />
+            <AnimatedNumber key={`low-${refreshKey}`} value={lowestPajak.persentaseTahun} format={(n) => `${n.toFixed(1)}%`} />
           </span>
         </div>
       </div>

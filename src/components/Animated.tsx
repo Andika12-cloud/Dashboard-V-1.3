@@ -13,9 +13,11 @@ export interface AnimatedNumberProps {
 
 /**
  * Komponen AnimatedNumber
- * - Saat pertama kali dirender (misal setelah login), angka menghitung dari 0 menuju nilai asli.
- * - Setiap kali prop `value` berubah setelahnya (refresh data, filter tanggal, update real-time),
- *   angka beranimasi dari nilai yang sedang tampil menuju nilai baru (bukan dari 0 lagi).
+ * - Saat pertama kali dirender (mount), angka menghitung dari 0 menuju nilai asli.
+ * - Setiap kali prop `value` berubah setelahnya, angka beranimasi dari nilai
+ *   yang sedang tampil menuju nilai baru (bukan dari 0 lagi).
+ * - Untuk memaksa animasi mulai dari 0 lagi (misal saat tombol Refresh ditekan),
+ *   remount komponen ini dengan mengganti prop `key` dari parent.
  * - Menghormati preferensi "reduce motion" pada perangkat pengguna.
  */
 export const AnimatedNumber: React.FC<AnimatedNumberProps> = ({

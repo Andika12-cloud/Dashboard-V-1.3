@@ -38,6 +38,7 @@ interface TaxTableProps {
   categoryFilter?: string;
   onNavigateLaporan?: () => void;
   summaryTotals?: SummaryTotals;
+  refreshKey?: number;
 }
 
 type ExecutiveViewTab = 'top_performers' | 'perhatian_khusus' | 'semua_sektor';
@@ -67,6 +68,7 @@ export const TaxTable: React.FC<TaxTableProps> = ({
   searchQuery = '',
   onNavigateLaporan,
   summaryTotals,
+  refreshKey = 0,
 }) => {
   const [activeTab, setActiveTab] = useState<ExecutiveViewTab>('top_performers');
   const [internalSearch, setInternalSearch] = useState('');
@@ -249,14 +251,14 @@ export const TaxTable: React.FC<TaxTableProps> = ({
                   {/* Target (w-[22%]) */}
                   <td className="w-[22%] py-3 px-2 text-right truncate" title={formatRupiah(tax.targetTahun)}>
                     <span className="tabular-nums font-semibold text-xs text-slate-800 block truncate">
-                      <AnimatedNumber value={tax.targetTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
+                      <AnimatedNumber key={`target-${tax.id}-${refreshKey}`} value={tax.targetTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
                     </span>
                   </td>
 
                   {/* Realisasi (w-[24%]) */}
                   <td className="w-[24%] py-3 px-2 text-right truncate" title={formatRupiah(tax.realisasiTahun)}>
                     <span className="tabular-nums font-semibold text-xs text-slate-900 block truncate">
-                      <AnimatedNumber value={tax.realisasiTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
+                      <AnimatedNumber key={`real-${tax.id}-${refreshKey}`} value={tax.realisasiTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
                     </span>
                   </td>
 
@@ -264,7 +266,7 @@ export const TaxTable: React.FC<TaxTableProps> = ({
                   <td className="w-[18%] py-3 px-3 text-right truncate">
                     <div className="flex items-center justify-end">
                       <span className={`inline-block px-2.5 py-0.5 rounded-md text-xs font-semibold tabular-nums text-right ${status.badgeClass}`}>
-                        <AnimatedNumber value={tax.persentaseTahun} format={(n) => formatPercentage(n)} />
+                        <AnimatedNumber key={`persen-${tax.id}-${refreshKey}`} value={tax.persentaseTahun} format={(n) => formatPercentage(n)} />
                       </span>
                     </div>
                   </td>
@@ -282,14 +284,14 @@ export const TaxTable: React.FC<TaxTableProps> = ({
                 </div>
               </td>
               <td className="w-[22%] py-3 px-2 text-right tabular-nums font-semibold text-xs text-slate-200 truncate">
-                <AnimatedNumber value={dynamicTotals.totalKeseluruhan.targetTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
+                <AnimatedNumber key={`tot-target-${refreshKey}`} value={dynamicTotals.totalKeseluruhan.targetTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
               </td>
               <td className="w-[24%] py-3 px-2 text-right tabular-nums font-bold text-xs text-emerald-300 truncate">
-                <AnimatedNumber value={dynamicTotals.totalKeseluruhan.realisasiTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
+                <AnimatedNumber key={`tot-real-${refreshKey}`} value={dynamicTotals.totalKeseluruhan.realisasiTahun} format={(n) => formatRupiahShort(Math.round(n), true)} />
               </td>
               <td className="w-[18%] py-3 px-3 text-right truncate">
                 <span className="inline-block px-2.5 py-0.5 rounded-md text-xs font-bold tabular-nums bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
-                  <AnimatedNumber value={dynamicTotals.totalKeseluruhan.persentaseTahun} format={(n) => formatPercentage(n)} />
+                  <AnimatedNumber key={`tot-persen-${refreshKey}`} value={dynamicTotals.totalKeseluruhan.persentaseTahun} format={(n) => formatPercentage(n)} />
                 </span>
               </td>
             </tr>

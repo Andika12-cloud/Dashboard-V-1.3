@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Navbar } from './components/Navbar';
 import { MetricCards } from './components/MetricCards';
@@ -64,6 +64,11 @@ export default function App() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showRefreshToast, setShowRefreshToast] = useState(false);
+
+  // Refresh key: diganti setiap kali data "diperbarui" (manual/otomatis),
+  // dipakai sebagai `key` di MetricCards & TaxTable supaya AnimatedNumber remount dari 0
+  const [refreshKey, setRefreshKey] = useState(0);
+  const autoRefreshIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // 1. Filter Transaksi Berdasarkan Rentang Tanggal
   const filteredTransactions = useMemo(() => {
@@ -145,15 +150,43 @@ export default function App() {
     setLoginError('');
   };
 
-  // Refresh simulation
-  const handleRefresh = () => {
+  // Refresh data — isAuto: true jika dipicu otomatis tiap 30 detik, false jika klik manual
+  const handleRefresh = (isAuto: boolean = false) => {
     setIsRefreshing(true);
     setTimeout(() => {
+      // TODO: ganti bagian ini dengan fetch data asli dari API saat sudah terhubung.
+      // Misal: fetchLatestData().then((res) => { setApiTaxData(res.taxItems); setApiSummary(res.summary); });
+      setRefreshKey((k) => k + 1); // memaksa angka & progress bar mulai animasi dari 0
       setIsRefreshing(false);
-      setShowRefreshToast(true);
-      setTimeout(() => setShowRefreshToast(false), 3000);
+
+      if (!isAuto) {
+        // Hanya refresh manual yang menampilkan toast & mereset timer 30 detik
+        setShowRefreshToast(true);
+        setTimeout(() => setShowRefreshToast(false), 3000);
+        startAutoRefreshTimer();
+      }
     }, 800);
   };
+
+  // Mulai/reset timer auto-refresh 30 detik
+  const startAutoRefreshTimer = () => {
+    if (autoRefreshIntervalRef.current) {
+      clearInterval(autoRefreshIntervalRef.current);
+    }
+    autoRefreshIntervalRef.current = setInterval(() => {
+      handleRefresh(true);
+    }, 30000);
+  };
+
+  // Jalankan timer auto-refresh saat dashboard pertama kali mount
+  useEffect(() => {
+    startAutoRefreshTimer();
+    return () => {
+      if (autoRefreshIntervalRef.current) {
+        clearInterval(autoRefreshIntervalRef.current);
+      }
+    };
+  }, []);
 
   // 1. Tampilan Halaman Login
    if (!isAuthenticated) {
@@ -361,7 +394,7 @@ export default function App() {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           onExport={() => setIsExportOpen(true)}
-          onRefresh={handleRefresh}
+          onRefresh={() => handleRefresh(false)}
           isRefreshing={isRefreshing}
           onLogout={handleLogout}
           onOpenProfile={() => setIsProfileOpen(true)}
@@ -387,6 +420,7 @@ export default function App() {
                   customSummary={filteredSummaryTotals}
                   customTaxData={filteredTaxData}
                   dateRangeLabel={dateRangeLabel}
+                  refreshKey={refreshKey}
                 />
               </section>
 
@@ -401,6 +435,7 @@ export default function App() {
                   categoryFilter={selectedCategory}
                   onNavigateLaporan={() => setActiveTab('laporan')}
                   summaryTotals={filteredSummaryTotals}
+                  refreshKey={refreshKey}
                   />
                 </div>
 
